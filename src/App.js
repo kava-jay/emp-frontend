@@ -12,8 +12,8 @@ function App() {
   const [newWage, setNewWage] = useState(0);
 
   const [employeeList, setEmployeeList] = useState([]);
-  const baseUrl = "http://localhost:3001"
-  // const baseUrl = "http://4.240.8.160:3001"
+//  const baseUrl = "http://localhost:3001"
+  const baseUrl = "http://40.80.82.211:3001"
 
   const addEmployee = () => {
     Axios.post(`${baseUrl}/create`, {
