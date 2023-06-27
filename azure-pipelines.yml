@@ -21,9 +21,10 @@ steps:
     appType: 'webApp'
     WebAppName: 'empfrontend'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-- task: NodeTaskRunnerInstaller@0
+- task: NodeTool@0
   inputs:
-    nodeVersion: '10'
+    versionSource: 'spec'
+    versionSpec: '18.x'
 - task: Npm@1
   inputs:
     command: 'custom'
