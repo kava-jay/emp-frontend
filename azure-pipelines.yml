@@ -1,25 +1,32 @@
 variables:
   buildConfiguration: 'Release'
 
-steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    publishWebProjects: true
-- task: AzureWebApp@1
-  inputs:
-    azureSubscription: 'Testazure-devops'
-    appType: 'webAppLinux'
-    appName: 'empfrontend'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-- task: AzureAppServiceSettings@1
-  inputs:
-    azureSubscription: 'TestAzure-devops'
-    appName: 'empfrontend'
-    resourceGroupName: 'test'
+# steps:
+# - script: dotnet build --configuration $(buildConfiguration)
+#   displayName: 'dotnet build $(buildConfiguration)'
+# - task: DotNetCoreCLI@2
+#   inputs:
+#     command: 'publish'
+#     publishWebProjects: true
+# - task: AzureWebApp@1
+#   inputs:
+#     azureSubscription: '<Azure service connection>'
+#     appType: 'webAppLinux'
+#     appName: '<Name of web app>'
+#     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+
+- task: AzureRmWebAppDeployment@4
 - task: Npm@1
   inputs:
     command: 'custom'
     customCommand: 'run build'
+- task: Npm@1
+  inputs:
+    command: 'install'
+
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'TestAzure-devops'
+    appType: 'webApp'
+    WebAppName: 'empfrontend'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
