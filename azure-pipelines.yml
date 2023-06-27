@@ -2,8 +2,8 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: nodejs build --configuration $(buildConfiguration)
-  displayName: 'nodejs build $(buildConfiguration)'
+# - script: nodejs build --configuration $(buildConfiguration)
+#   displayName: 'nodejs build $(buildConfiguration)'
 # - task: DotNetCoreCLI@2
 #   inputs:
 #     command: 'publish'
@@ -20,6 +20,13 @@ steps:
     appType: 'webAppLinux'
     appName: 'empfrontend'
     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    runtimeStack: 'NODE|18-lts'
+# - task: AzureWebApp@1
+#   inputs:
+#     azureSubscription: 'TestAzure-devops'
+#     appType: 'webAppLinux'
+#     appName: 'empfrontend'
+#     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
 - task: NodeTool@0
   inputs:
     versionSource: 'spec'
