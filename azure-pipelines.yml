@@ -16,8 +16,15 @@ steps:
 #     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
 - task: AzureRmWebAppDeployment@4
   inputs:
-    ConnectionType: 'AzureRM'
+
     azureSubscription: 'TestAzure-devops'
     appType: 'webApp'
     WebAppName: 'empfrontend'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+- task: NodeTaskRunnerInstaller@0
+  inputs:
+    nodeVersion: '10'
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    customCommand: 'run build'
