@@ -14,13 +14,12 @@ steps:
 #     appType: 'webAppLinux'
 #     appName: '<Name of web app>'
 #     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-- task: AzureRmWebAppDeployment@4
+- task: AzureWebApp@1
   inputs:
-
     azureSubscription: 'TestAzure-devops'
     appType: 'webApp'
     WebAppName: 'empfrontend'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
 - task: NodeTool@0
   inputs:
     versionSource: 'spec'
