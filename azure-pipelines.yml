@@ -19,3 +19,7 @@ steps:
     azureSubscription: 'TestAzure-devops'
     appName: 'empfrontend'
     resourceGroupName: 'test'
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    customCommand: 'run build'
