@@ -17,16 +17,17 @@ steps:
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'TestAzure-devops'
-    appType: 'webApp'
-    WebAppName: 'empfrontend'
+    appType: 'webAppLinux'
+    appName: 'empfrontend'
     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-- task: Npm@1
-  inputs:
-    command: 'install'
 - task: NodeTool@0
   inputs:
     versionSource: 'spec'
     versionSpec: '18.x'
+- task: Npm@1
+  inputs:
+    command: 'install'
+
 - task: Npm@1
   inputs:
     command: 'custom'
