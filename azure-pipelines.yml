@@ -20,6 +20,9 @@ steps:
     appType: 'webApp'
     WebAppName: 'empfrontend'
     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+- task: Npm@1
+  inputs:
+    command: 'install'
 - task: NodeTool@0
   inputs:
     versionSource: 'spec'
