@@ -14,14 +14,6 @@ steps:
 #     appType: 'webAppLinux'
 #     appName: '<Name of web app>'
 #     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-- task: Npm@1
-  inputs:
-    command: 'custom'
-    customCommand: 'run build'
-- task: Npm@1
-  inputs:
-    command: 'install'
-
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
