@@ -1,12 +1,40 @@
 
 
 steps:
-
+- task: NodeTool@0
+  inputs:
+    versionSpec: '16.x'
+  displayName: 'Install Node.js'
+- script: |
+    if [ -f extensions.csproj ]
+    then
+        dotnet build extensions.csproj --output ./bin
+    fi
+    npm install 
+    npm run build --if-present
+    npm prune --production  
+- task: ArchiveFiles@2
+  displayName: "Archive files"
+  inputs:
+    rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
+    includeRootFolder: false
+    archiveFile: "$(System.DefaultWorkingDirectory)/build$(Build.BuildId).zip"
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/build$(Build.BuildId).zip'
+    artifactName: 'drop'
+- task: DownloadBuildArtifacts@1
+  inputs:
+    buildType: 'current'
+    downloadType: 'single'
+    artifactName: 'drop'
+    itemPattern: '**/*.zip'
+    downloadPath: '$(System.ArtifactsDirectory)'
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'TestAzure-devops'
     appType: 'webAppLinux'
     appName: 'empfrontend'
     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    runtimeStack: 'NODE|18-lts'
-
+    runtimeStack: 'NODE|16' 
+    deploymentMethod: 'auto'
