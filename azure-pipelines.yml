@@ -14,3 +14,8 @@ steps:
     appType: 'webAppLinux'
     appName: 'empfrontend'
     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+- task: AzureAppServiceSettings@1
+  inputs:
+    azureSubscription: 'TestAzure-devops'
+    appName: 'empfrontend'
+    resourceGroupName: 'test'
